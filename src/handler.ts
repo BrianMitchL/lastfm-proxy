@@ -1,8 +1,20 @@
+type Period = 'overall' | '7day' | '1month' | '3month' | '6month' | '12month';
+const validPeriods = [
+  'overall',
+  '7day',
+  '1month',
+  '3month',
+  '6month',
+  '12month',
+];
+
+function isPeriod(maybePeriod: string): maybePeriod is Period {
+  return validPeriods.includes(maybePeriod);
+}
+
 export async function handleRequest(request: Request): Promise<Response> {
   if (request.method === 'GET') {
     const url = new URL(request.url);
-    // overall | 7day | 1month | 3month | 6month | 12month
-    const period = url.searchParams.get('period') || 'overall';
 
     let method = '';
     if (url.pathname === '/tracks') {
@@ -14,6 +26,18 @@ export async function handleRequest(request: Request): Promise<Response> {
         status: 404,
         statusText: 'Route Not Found',
       });
+    }
+
+    const period = url.searchParams.get('period') || 'overall';
+
+    if (!isPeriod(period)) {
+      return new Response(
+        'Invalid period, must be omitted or one of the following: overall | 7day | 1month | 3month | 6month | 12month',
+        {
+          status: 400,
+          statusText: 'Bad Request',
+        }
+      );
     }
 
     const searchParams = new URLSearchParams({

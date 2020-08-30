@@ -150,4 +150,16 @@ describe('handler returns response with GET methods', () => {
       },
     });
   });
+
+  it('responds with 400 if an invalid period is supplied', async () => {
+    const result = await handleRequest(
+      new Request(`${urlBase}/artists?period=notagoodone`, { method: 'GET' })
+    );
+    expect(result.status).toBe(400);
+    expect(result.statusText).toBe('Bad Request');
+    expect(await result.text()).toBe(
+      'Invalid period, must be omitted or one of the following: overall | 7day | 1month | 3month | 6month | 12month'
+    );
+    expect(fetchMock.mock.calls).toHaveLength(0);
+  });
 });
