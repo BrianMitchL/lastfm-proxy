@@ -4,8 +4,10 @@ A Cloudflare Worker acting as a proxy for the LastFM API in order to expose endp
 
 The dev and prod versions are deployed to:
 
-https://lastfm-proxy-dev.brianm.me
-https://lastfm-proxy.brianm.me
+| Environment | URL                                |
+| ----------- | ---------------------------------- |
+| Dev         | https://lastfm-proxy-dev.brianm.me |
+| Prod        | https://lastfm-proxy.brianm.me     |
 
 ## Getting Started
 
