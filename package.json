@@ -1,0 +1,39 @@
+{
+  "name": "lastfm-proxy-worker",
+  "version": "1.0.0",
+  "description": "A Cloudflare Worker acting as a proxy for the LastFM API in order to expose endpoints.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "dev": "NODE_ENV=development npm run build",
+    "format": "prettier --write '{src/,test/,''}*.{ts,js,css,json,md}'",
+    "test": "jest"
+  },
+  "author": "Brian Mitchell <bamn4789@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BrianMitchL/lastfm-proxy.git"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^2.0.0",
+    "@types/jest": "^26.0.10",
+    "husky": "^4.2.5",
+    "jest": "^26.4.2",
+    "jest-fetch-mock": "^3.0.3",
+    "prettier": "^2.1.1",
+    "ts-jest": "^26.3.0",
+    "ts-loader": "^8.0.3",
+    "typescript": "^4.0.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run format"
+    }
+  },
+  "prettier": {
+    "singleQuote": true
+  }
+}

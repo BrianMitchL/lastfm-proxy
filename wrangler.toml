@@ -1,0 +1,11 @@
+type = "webpack"
+zone_id = "95397d2ef3e201333cb5035b13d43804"
+account_id = "b8430788afd4d07f6f8bfef14cb21e7e"
+route = "lastfm-proxy.brianm.me/*"
+webpack_config = "webpack.config.js"
+vars = { LASTFM_USERNAME = "BrianMitchL" }
+name = "lastfm-proxy"
+
+[env.dev]
+route = "lastfm-proxy-dev.brianm.me/*"
+vars = { LASTFM_USERNAME = "BrianMitchL" }

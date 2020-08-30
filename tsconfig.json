@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2019",
+    "lib": ["esnext", "webworker"],
+    "strict": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "types": ["@cloudflare/workers-types", "@types/jest"]
+  },
+  "include": ["src/**/*", "test/**/*"]
+}
