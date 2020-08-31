@@ -2,7 +2,7 @@
 
 A Cloudflare Worker acting as a proxy for the LastFM API in order to expose endpoints.
 
-The dev and prod versions are deployed to:
+The dev and prod versions I built this for are deployed to the following, targeting my last.fm user account, [BrianMitchL](https://www.last.fm/user/BrianMitchL).
 
 | Environment | URL                                |
 | ----------- | ---------------------------------- |
@@ -21,10 +21,10 @@ This worker is meant to be used with [Wrangler](https://github.com/cloudflare/wr
 
 There are two environment variables used to configure the worker.
 
-| Variable        | Use                                                                                                               |
-| --------------- | ----------------------------------------------------------------------------------------------------------------- |
-| LASTFM_USERNAME | The LastFM username to source the data from.                                                                      |
-| LASTFM_API_KEY  | The LastFM API key used to authorize the request. This is configured as a secret variable in Cloudflare/Wrangler. |
+| Variable          | Use                                                                                                               |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `LASTFM_USERNAME` | The LastFM username to source the data from.                                                                      |
+| `LASTFM_API_KEY`  | The LastFM API key used to authorize the request. This is configured as a secret variable in Cloudflare/Wrangler. |
 
 #### Testing
 
