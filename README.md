@@ -9,6 +9,12 @@ The dev and prod versions I built this for are deployed to the following, target
 | Dev         | https://lastfm-proxy-dev.brianm.me |
 | Prod        | https://lastfm-proxy.brianm.me     |
 
+## Use
+
+There are two routes, `/tracks` and `/artists`, each can be supplied with the optional `period` search parameter with one of the following options: `overall | 7day | 1month | 3month | 6month | 12month`. If none is specified, we default to `overall`.
+
+Example: https://lastfm-proxy-dev.brianm.me/tracks?period=7day
+
 ## Getting Started
 
 This worker is meant to be used with [Wrangler](https://github.com/cloudflare/wrangler). Documentation can be found [here](https://developers.cloudflare.com/workers/tooling/wrangler/).
