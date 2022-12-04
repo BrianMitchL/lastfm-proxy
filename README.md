@@ -38,8 +38,7 @@ There are two environment variables used to configure the worker.
 
 ### Previewing and Publishing
 
-For information on how to preview and publish your worker, please see the [Wrangler docs](https://developers.cloudflare.com/workers/tooling/wrangler/commands/#publish).
+Run `npm run start` to run a test version of the worker.
 
-Run `wrangler preview` to run a test version of the worker.
-
-Run `wrangler publish --env dev` or `wrangler publish` to publish the dev or prod versions.
+Run `wrangler publish --env=dev` or `wrangler publish` to publish the dev or prod versions.
+The GitHub Actions should do this automatically when merging into the `dev` or `main` branches.

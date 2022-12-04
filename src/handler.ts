@@ -1,3 +1,5 @@
+import { Env } from './index';
+
 type Period = 'overall' | '7day' | '1month' | '3month' | '6month' | '12month';
 const validPeriods = [
   'overall',
@@ -12,7 +14,10 @@ function isPeriod(maybePeriod: string): maybePeriod is Period {
   return validPeriods.includes(maybePeriod);
 }
 
-export async function handleRequest(request: Request): Promise<Response> {
+export async function handleRequest(
+  request: Request,
+  env: Env
+): Promise<Response> {
   if (request.method === 'GET') {
     const url = new URL(request.url);
 
@@ -42,15 +47,15 @@ export async function handleRequest(request: Request): Promise<Response> {
 
     const searchParams = new URLSearchParams({
       method,
-      user: LASTFM_USERNAME,
-      api_key: LASTFM_API_KEY,
+      user: env.LASTFM_USERNAME,
+      api_key: env.LASTFM_API_KEY,
       format: 'json',
       period,
       limit: '10',
     });
 
     const lastFmUrl = `https://ws.audioscrobbler.com/2.0/?${searchParams.toString()}`;
-    let response = await fetch(lastFmUrl, {
+    const lastFmResponse = await fetch(lastFmUrl, {
       cf: {
         // Tell CloudFlare's Global CDN to always cache this fetch regardless of content type
         // for a max of 60 seconds before revalidating the resource
@@ -60,10 +65,13 @@ export async function handleRequest(request: Request): Promise<Response> {
         'Content-Type': 'application/json;charset=UTF-8',
       },
     });
+
     // must use Response constructor to inherit all of response's fields
-    response = new Response(response.body, response);
-    //Set cache control headers to cache on browser for 30 minutes
-    response.headers.set('Cache-Control', 'max-age=1800');
+    const response = new Response(lastFmResponse.body, lastFmResponse);
+    if (lastFmResponse.ok) {
+      //Set cache control headers to cache on browser for 30 minutes
+      response.headers.set('Cache-Control', 'max-age=1800');
+    }
     return response;
   }
   return new Response('Method Not Allowed', {

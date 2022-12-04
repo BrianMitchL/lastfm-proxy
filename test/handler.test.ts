@@ -1,4 +1,12 @@
+import { enableFetchMocks } from 'jest-fetch-mock';
+enableFetchMocks();
+
 import { handleRequest } from '../src/handler';
+
+const env = {
+  LASTFM_USERNAME: 'testusername',
+  LASTFM_API_KEY: 'testapikey',
+};
 
 // this could be any valid URL for the purpose of the test, but why not use the dev value
 const urlBase = 'https://lastfm-proxy-dev.brianm.me';
@@ -15,7 +23,10 @@ describe('handler returns response with 405 status for all methods besides GET',
     'PATCH',
   ];
   it.each(methods)(`%s`, async (method) => {
-    const result = await handleRequest(new Request(`${urlBase}/`, { method }));
+    const result = await handleRequest(
+      new Request(`${urlBase}/`, { method }),
+      env
+    );
     expect(result.status).toBe(405);
     expect(result.statusText).toBe('Method Not Allowed');
     expect(await result.text()).toBe('Method Not Allowed');
@@ -51,7 +62,8 @@ describe('handler returns response with GET methods', () => {
 
   it('responds with 404 status on the root route', async () => {
     const result = await handleRequest(
-      new Request(`${urlBase}/`, { method: 'GET' })
+      new Request(`${urlBase}/`, { method: 'GET' }),
+      env
     );
     expect(result.status).toBe(404);
     expect(result.statusText).toBe('Route Not Found');
@@ -61,7 +73,8 @@ describe('handler returns response with GET methods', () => {
 
   it('responds to the /tracks route', async () => {
     const result = await handleRequest(
-      new Request(`${urlBase}/tracks`, { method: 'GET' })
+      new Request(`${urlBase}/tracks`, { method: 'GET' }),
+      env
     );
     expect(result.status).toBe(200);
     expect(result.statusText).toBe('OK');
@@ -84,7 +97,8 @@ describe('handler returns response with GET methods', () => {
 
   it('responds to the /tracks route with a period specified', async () => {
     const result = await handleRequest(
-      new Request(`${urlBase}/tracks?period=1month`, { method: 'GET' })
+      new Request(`${urlBase}/tracks?period=1month`, { method: 'GET' }),
+      env
     );
     expect(result.status).toBe(200);
     expect(result.statusText).toBe('OK');
@@ -107,7 +121,8 @@ describe('handler returns response with GET methods', () => {
 
   it('responds to the /artists route', async () => {
     const result = await handleRequest(
-      new Request(`${urlBase}/artists`, { method: 'GET' })
+      new Request(`${urlBase}/artists`, { method: 'GET' }),
+      env
     );
     expect(result.status).toBe(200);
     expect(result.statusText).toBe('OK');
@@ -130,7 +145,8 @@ describe('handler returns response with GET methods', () => {
 
   it('responds to the /artists route with a period specified', async () => {
     const result = await handleRequest(
-      new Request(`${urlBase}/artists?period=7day`, { method: 'GET' })
+      new Request(`${urlBase}/artists?period=7day`, { method: 'GET' }),
+      env
     );
     expect(result.status).toBe(200);
     expect(result.statusText).toBe('OK');
@@ -153,7 +169,8 @@ describe('handler returns response with GET methods', () => {
 
   it('responds with 400 if an invalid period is supplied', async () => {
     const result = await handleRequest(
-      new Request(`${urlBase}/artists?period=notagoodone`, { method: 'GET' })
+      new Request(`${urlBase}/artists?period=notagoodone`, { method: 'GET' }),
+      env
     );
     expect(result.status).toBe(400);
     expect(result.statusText).toBe('Bad Request');
