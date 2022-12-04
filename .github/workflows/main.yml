@@ -37,19 +37,11 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          secrets: |
-            LASTFM_API_KEY
           command: publish --env=dev
-        env:
-          LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
       - name: Publish Prod
         if: endsWith(github.ref, '/main')
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          secrets: |
-            LASTFM_API_KEY
           command: publish
-        env:
-          LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
