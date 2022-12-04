@@ -1,4 +1,4 @@
-import { handleRequest } from './handler';
+import { handleRequest } from "./handler";
 
 export interface Env {
   LASTFM_USERNAME: string;

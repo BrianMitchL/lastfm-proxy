@@ -34,9 +34,6 @@
   "engines": {
     "node": ">= 16.18.1"
   },
-  "prettier": {
-    "singleQuote": true
-  },
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
