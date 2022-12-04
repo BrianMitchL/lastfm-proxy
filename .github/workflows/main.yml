@@ -1,4 +1,4 @@
-name: 'CI/CD'
+name: "CI/CD"
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
       - dev
     paths-ignore:
-      - '*.md'
+      - "*.md"
   pull_request:
 
 jobs:
@@ -14,15 +14,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x, 14.x]
+        node-version: [16.x, 18.x]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+          cache: "npm"
       - run: npm ci
-      - run: npm run build
       - run: npm test
   deploy:
     needs: ci
@@ -30,15 +30,24 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Publish Dev
         if: endsWith(github.ref, '/dev')
-        uses: cloudflare/wrangler-action@1.2.0
+        uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
-          environment: 'dev'
+          secrets: |
+            LASTFM_API_KEY
+          command: publish --env=dev
+        env:
+          LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
       - name: Publish Prod
         if: endsWith(github.ref, '/main')
-        uses: cloudflare/wrangler-action@1.2.0
+        uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
+          secrets: |
+            LASTFM_API_KEY
+          command: publish
+        env:
+          LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
