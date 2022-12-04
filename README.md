@@ -9,6 +9,12 @@ The dev and prod versions I built this for are deployed to the following, target
 | Dev         | https://lastfm-proxy-dev.brianm.me |
 | Prod        | https://lastfm-proxy.brianm.me     |
 
+## Use
+
+There are two routes, `/tracks` and `/artists`, each can be supplied with the optional `period` search parameter with one of the following options: `overall | 7day | 1month | 3month | 6month | 12month`. If none is specified, we default to `overall`.
+
+Example: https://lastfm-proxy-dev.brianm.me/tracks?period=7day
+
 ## Getting Started
 
 This worker is meant to be used with [Wrangler](https://github.com/cloudflare/wrangler). Documentation can be found [here](https://developers.cloudflare.com/workers/tooling/wrangler/).
@@ -32,8 +38,7 @@ There are two environment variables used to configure the worker.
 
 ### Previewing and Publishing
 
-For information on how to preview and publish your worker, please see the [Wrangler docs](https://developers.cloudflare.com/workers/tooling/wrangler/commands/#publish).
+Run `npm run start` to run a test version of the worker.
 
-Run `wrangler preview` to run a test version of the worker.
-
-Run `wrangler publish --env dev` or `wrangler publish` to publish the dev or prod versions.
+Run `wrangler publish --env=dev` or `wrangler publish` to publish the dev or prod versions.
+The GitHub Actions should do this automatically when merging into the `dev` or `main` branches.

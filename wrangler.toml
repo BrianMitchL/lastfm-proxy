@@ -1,11 +1,16 @@
-type = "webpack"
-zone_id = "95397d2ef3e201333cb5035b13d43804"
-account_id = "b8430788afd4d07f6f8bfef14cb21e7e"
-route = "lastfm-proxy.brianm.me/*"
-webpack_config = "webpack.config.js"
-vars = { LASTFM_USERNAME = "BrianMitchL" }
 name = "lastfm-proxy"
+compatibility_date = "2022-12-04"
+main = "src/index.ts"
+route = "lastfm-proxy.brianm.me/*"
+
+[vars]
+LASTFM_USERNAME = "BrianMitchL"
+# echo <VALUE> | wrangler secret put LASTFM_API_KEY
 
 [env.dev]
+name = "lastfm-proxy-dev"
 route = "lastfm-proxy-dev.brianm.me/*"
-vars = { LASTFM_USERNAME = "BrianMitchL" }
+
+[env.dev.vars]
+LASTFM_USERNAME = "BrianMitchL"
+# echo <VALUE> | wrangler secret put LASTFM_API_KEY --env=dev

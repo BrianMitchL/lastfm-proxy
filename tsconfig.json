@@ -1,12 +1,19 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es2019",
-    "lib": ["esnext", "webworker"],
+    "target": "es2021",
+    "lib": ["es2021"],
+    "jsx": "react",
+    "module": "es2022",
+    "moduleResolution": "node",
+    "types": ["@cloudflare/workers-types", "@types/jest", "@types/node"],
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "sourceMap": true,
-    "esModuleInterop": true,
-    "types": ["@cloudflare/workers-types", "@types/jest"]
-  },
-  "include": ["src/**/*", "test/**/*"]
+    "skipLibCheck": true
+  }
 }
