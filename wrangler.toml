@@ -1,7 +1,7 @@
 name = "lastfm-proxy"
 compatibility_date = "2022-12-04"
 main = "src/index.ts"
-route = { pattern = "lastfm-proxy.brianm.me/*", custom_domain = true, zone_name = "brianm.me" }
+route = "lastfm-proxy.brianm.me/*"
 
 [vars]
 LASTFM_USERNAME = "BrianMitchL"
@@ -9,7 +9,7 @@ LASTFM_USERNAME = "BrianMitchL"
 
 [env.dev]
 name = "lastfm-proxy-dev"
-route = { pattern = "lastfm-proxy-dev.brianm.me/*", custom_domain = true, zone_name = "brianm.me" }
+route = "lastfm-proxy-dev.brianm.me/*"
 
 [env.dev.vars]
 LASTFM_USERNAME = "BrianMitchL"
