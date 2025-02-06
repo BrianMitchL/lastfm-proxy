@@ -16,7 +16,7 @@ function isPeriod(maybePeriod: string): maybePeriod is Period {
 
 export async function handleRequest(
   request: Request,
-  env: Env
+  env: Env,
 ): Promise<Response> {
   if (request.method === "GET") {
     const url = new URL(request.url);
@@ -41,7 +41,7 @@ export async function handleRequest(
         {
           status: 400,
           statusText: "Bad Request",
-        }
+        },
       );
     }
 

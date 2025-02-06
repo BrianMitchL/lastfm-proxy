@@ -25,7 +25,7 @@ describe("handler returns response with 405 status for all methods besides GET",
   it.each(methods)(`%s`, async (method) => {
     const result = await handleRequest(
       new Request(`${urlBase}/`, { method }),
-      env
+      env,
     );
     expect(result.status).toBe(405);
     expect(result.statusText).toBe("Method Not Allowed");
@@ -63,7 +63,7 @@ describe("handler returns response with GET methods", () => {
   it("responds with 404 status on the root route", async () => {
     const result = await handleRequest(
       new Request(`${urlBase}/`, { method: "GET" }),
-      env
+      env,
     );
     expect(result.status).toBe(404);
     expect(result.statusText).toBe("Route Not Found");
@@ -74,7 +74,7 @@ describe("handler returns response with GET methods", () => {
   it("responds to the /tracks route", async () => {
     const result = await handleRequest(
       new Request(`${urlBase}/tracks`, { method: "GET" }),
-      env
+      env,
     );
     expect(result.status).toBe(200);
     expect(result.statusText).toBe("OK");
@@ -83,7 +83,7 @@ describe("handler returns response with GET methods", () => {
     expect(await result.json()).toEqual({ toptracks: { track: [] } });
     expect(fetchMock.mock.calls).toHaveLength(1);
     expect(fetchMock.mock.calls[0][0]).toEqual(
-      "https://ws.audioscrobbler.com/2.0/?method=user.getTopTracks&user=testusername&api_key=testapikey&format=json&period=overall&limit=10"
+      "https://ws.audioscrobbler.com/2.0/?method=user.getTopTracks&user=testusername&api_key=testapikey&format=json&period=overall&limit=10",
     );
     expect(fetchMock.mock.calls[0][1]).toEqual({
       cf: {
@@ -98,7 +98,7 @@ describe("handler returns response with GET methods", () => {
   it("responds to the /tracks route with a period specified", async () => {
     const result = await handleRequest(
       new Request(`${urlBase}/tracks?period=1month`, { method: "GET" }),
-      env
+      env,
     );
     expect(result.status).toBe(200);
     expect(result.statusText).toBe("OK");
@@ -107,7 +107,7 @@ describe("handler returns response with GET methods", () => {
     expect(await result.json()).toEqual({ toptracks: { track: [] } });
     expect(fetchMock.mock.calls).toHaveLength(1);
     expect(fetchMock.mock.calls[0][0]).toEqual(
-      "https://ws.audioscrobbler.com/2.0/?method=user.getTopTracks&user=testusername&api_key=testapikey&format=json&period=1month&limit=10"
+      "https://ws.audioscrobbler.com/2.0/?method=user.getTopTracks&user=testusername&api_key=testapikey&format=json&period=1month&limit=10",
     );
     expect(fetchMock.mock.calls[0][1]).toEqual({
       cf: {
@@ -122,7 +122,7 @@ describe("handler returns response with GET methods", () => {
   it("responds to the /artists route", async () => {
     const result = await handleRequest(
       new Request(`${urlBase}/artists`, { method: "GET" }),
-      env
+      env,
     );
     expect(result.status).toBe(200);
     expect(result.statusText).toBe("OK");
@@ -131,7 +131,7 @@ describe("handler returns response with GET methods", () => {
     expect(await result.json()).toEqual({ topartists: { artist: [] } });
     expect(fetchMock.mock.calls).toHaveLength(1);
     expect(fetchMock.mock.calls[0][0]).toEqual(
-      "https://ws.audioscrobbler.com/2.0/?method=user.getTopArtists&user=testusername&api_key=testapikey&format=json&period=overall&limit=10"
+      "https://ws.audioscrobbler.com/2.0/?method=user.getTopArtists&user=testusername&api_key=testapikey&format=json&period=overall&limit=10",
     );
     expect(fetchMock.mock.calls[0][1]).toEqual({
       cf: {
@@ -146,7 +146,7 @@ describe("handler returns response with GET methods", () => {
   it("responds to the /artists route with a period specified", async () => {
     const result = await handleRequest(
       new Request(`${urlBase}/artists?period=7day`, { method: "GET" }),
-      env
+      env,
     );
     expect(result.status).toBe(200);
     expect(result.statusText).toBe("OK");
@@ -155,7 +155,7 @@ describe("handler returns response with GET methods", () => {
     expect(await result.json()).toEqual({ topartists: { artist: [] } });
     expect(fetchMock.mock.calls).toHaveLength(1);
     expect(fetchMock.mock.calls[0][0]).toEqual(
-      "https://ws.audioscrobbler.com/2.0/?method=user.getTopArtists&user=testusername&api_key=testapikey&format=json&period=7day&limit=10"
+      "https://ws.audioscrobbler.com/2.0/?method=user.getTopArtists&user=testusername&api_key=testapikey&format=json&period=7day&limit=10",
     );
     expect(fetchMock.mock.calls[0][1]).toEqual({
       cf: {
@@ -170,12 +170,12 @@ describe("handler returns response with GET methods", () => {
   it("responds with 400 if an invalid period is supplied", async () => {
     const result = await handleRequest(
       new Request(`${urlBase}/artists?period=notagoodone`, { method: "GET" }),
-      env
+      env,
     );
     expect(result.status).toBe(400);
     expect(result.statusText).toBe("Bad Request");
     expect(await result.text()).toBe(
-      "Invalid period, must be omitted or one of the following: overall | 7day | 1month | 3month | 6month | 12month"
+      "Invalid period, must be omitted or one of the following: overall | 7day | 1month | 3month | 6month | 12month",
     );
     expect(fetchMock.mock.calls).toHaveLength(0);
   });
