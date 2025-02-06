@@ -37,11 +37,11 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: publish --env=dev
+          command: deploy --env=dev
       - name: Publish Prod
         if: endsWith(github.ref, '/main')
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: publish
+          command: deploy
